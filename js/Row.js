@@ -16,10 +16,17 @@ function Row() {
 	};
 
 	/**
+	 * @returns {*}
+	 */
+	this.getData = function() {
+		return data;
+	};
+
+	/**
 	 * @returns {string}
 	 */
 	this.render = function() {
-		var html = '<tr>';
+		var html = '<tr class="lyre-line">';
 		// fill with data
 		for (var key in data) {
 			html += '<td>' + data[key] + '</td>'
@@ -38,10 +45,10 @@ function Row() {
 	 * @returns {string}
 	 */
 	this.createActionsNormalMode = function() {
-		var html = '<td>';
-		html += '<i class="lyre-btn lyre-btn-edit fa fa-edit">Edit</i>';
+		var html = '<td class="text-center">';
+		html += '<i class="lyre-btn lyre-btn-edit fa fa-edit text-blue" title="Edit"></i>';
 		html += '&nbsp;|&nbsp;';
-		html += '<i class="lyre-btn lyre-btn-delete fa fa-trash">Delete</i>';
+		html += '<i class="lyre-btn lyre-btn-delete fa fa-trash text-red" title="Delete"></i>';
 		html += '</td>';
 		return html;
 	};
@@ -52,9 +59,9 @@ function Row() {
 	this.createActionsEditionMode = function() {
 		var html = '<td>';
 		if (changed)
-			html += '<i class="lyre-btn lyre-btn-save fa fa-save">Edit</i>';
+			html += '<i class="lyre-btn lyre-btn-save fa fa-save text-green" title="Save"></i>';
 		else
-			html += '<i class="lyre-btn lyre-btn-save fa fa-times">Quit edit mode</i>';
+			html += '<i class="lyre-btn lyre-btn-save fa fa-times text-red" title="Quit edition mode"></i>';
 		html += '</td>';
 		return html;
 	};

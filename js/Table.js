@@ -30,7 +30,6 @@ function Table() {
 			dataType: 'json'
 		}).done(function(response) {
 			data = response;
-			console.log(response);
 			self.render();
 		}).fail(function(error) {
 			console.log(error);
@@ -44,12 +43,8 @@ function Table() {
 	 */
 	this.render = function() {
 		var self = this;
-		var html = '<table>';
-		for (var i = 0; i< data.length; i++) {
-			var row = new Row();
-			row.init(data[i], {});
-			rows.push(row);
-		}
+		var html = '<table class="lyre-table">';
+		this.fillData();
 		html += self.generateHeader();
 		html += self.generateBody();
 		html += '</table>';
@@ -57,14 +52,27 @@ function Table() {
 	};
 
 	/**
+	 *
+	 */
+	this.fillData = function() {
+		rows = [];
+		for (var i = 0; i< data.length; i++) {
+			var row = new Row();
+			row.init(data[i], {});
+			rows.push(row);
+		}
+	};
+
+	/**
 	 * @returns {string}
 	 */
 	this.generateHeader = function() {
 		var html = '<thead>';
-		var firstRow = rows[0];
+		var firstRow = rows[0].getData();
 		for (var key in firstRow) {
 			html += '<th>' + key + '</th>';
 		}
+		html += '<th></th>';
 		html += '</thead>';
 		return html;
 	};
