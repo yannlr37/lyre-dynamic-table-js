@@ -19,36 +19,63 @@ function Table() {
 	};
 
 	/**
+	 * @returns {Array}
+	 */
+	this.getData = function() {
+		return data;
+	};
+
+	/**
 	 *
 	 */
 	this.loadData = function() {
 		var self = this;
 		$.ajax({
-			url: 'data.json',
+			url: 'data.json', // TODO: replace by php page in server-cide mode
 			method: 'get',
-			data: {},
+			data: {}, // TODO: add filters here
 			dataType: 'json'
 		}).done(function(response) {
 			data = response;
+			self.fillData();
 			self.render();
+			self.bindEvents();
 		}).fail(function(error) {
 			console.log(error);
 		}).always(function() {
-			//console.log('Données récupérées');
+			console.log(data); // TODO: remove
 		});
 	};
 
 	/**
 	 *
 	 */
-	this.render = function() {
+	this.bindEvents = function() {
 		var self = this;
-		var html = '<table class="lyre-table">';
-		this.fillData();
-		html += self.generateHeader();
-		html += self.generateBody();
-		html += '</table>';
-		$wrapper.append(html);
+		// switch a line into edition mode
+		$('body').on('click', '.lyre-btn-edit', function(event) {
+			var index = $('body .lyre-table .lyre-btn-edit').index(this);
+			var row = rows[index];
+			$(this).closest('tr').find('.lyre-cell').each(function(index, element) {
+				element.innerHTML = '<input type="text" value="' + element.innerText + '">';
+			});
+
+			$(this).closest('tr').find('.lyre-actions').each(function(index, element) {
+				$(this).html(row.createActionsEditionMode());
+			});
+		});
+		// quit edition mode
+		$('body').on('click', '.lyre-btn-quit', function(event) {
+			var index = $('body .lyre-table .lyre-btn-edit').index(this);
+			var row = rows[index];
+			$(this).closest('tr').find('.lyre-cell').each(function(index, element) {
+				element.innerHTML = '<input type="text" value="' + element.innerText + '">';
+			});
+
+			$(this).closest('tr').find('.lyre-actions').each(function(index, element) {
+				$(this).html(row.createActionsEditionMode());
+			});
+		});
 	};
 
 	/**
@@ -64,6 +91,18 @@ function Table() {
 	};
 
 	/**
+	 *
+	 */
+	this.render = function() {
+		var self = this;
+		var html = '<table class="lyre-table">';
+		html += self.generateHeader();
+		html += self.generateBody();
+		html += '</table>';
+		$wrapper.append(html);
+	};
+
+	/**
 	 * @returns {string}
 	 */
 	this.generateHeader = function() {
@@ -72,7 +111,7 @@ function Table() {
 		for (var key in firstRow) {
 			html += '<th>' + key + '</th>';
 		}
-		html += '<th></th>';
+		html += '<th></th>'; // action column
 		html += '</thead>';
 		return html;
 	};

@@ -5,6 +5,7 @@ function Row() {
 	var data = {};
 	var editable = false;
 	var changed = false;
+	var htmlRow = '';
 
 	/**
 	 *
@@ -29,7 +30,7 @@ function Row() {
 		var html = '<tr class="lyre-line">';
 		// fill with data
 		for (var key in data) {
-			html += '<td>' + data[key] + '</td>'
+			html += '<td class="lyre-cell">' + data[key] + '</td>'
 		}
 		// create actions buttons
 		if (!editable) {
@@ -38,14 +39,15 @@ function Row() {
 			html += this.createActionsEditionMode();
 		}
 		html += '</tr>';
-		return html;
+		htmlRow = html;
+		return htmlRow;
 	};
 
 	/**
 	 * @returns {string}
 	 */
 	this.createActionsNormalMode = function() {
-		var html = '<td class="text-center">';
+		var html = '<td class="lyre-actions text-center">';
 		html += '<i class="lyre-btn lyre-btn-edit fa fa-edit text-blue" title="Edit"></i>';
 		html += '&nbsp;|&nbsp;';
 		html += '<i class="lyre-btn lyre-btn-delete fa fa-trash text-red" title="Delete"></i>';
@@ -61,7 +63,7 @@ function Row() {
 		if (changed)
 			html += '<i class="lyre-btn lyre-btn-save fa fa-save text-green" title="Save"></i>';
 		else
-			html += '<i class="lyre-btn lyre-btn-save fa fa-times text-red" title="Quit edition mode"></i>';
+			html += '<i class="lyre-btn lyre-btn-quit fa fa-times text-red" title="Quit edition mode"></i>';
 		html += '</td>';
 		return html;
 	};
