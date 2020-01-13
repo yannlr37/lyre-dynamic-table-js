@@ -129,19 +129,15 @@
             });
 
             // edit selection
-            $('#editBtn').on('click', function(event) {
-                event.preventDefault();
-                var ids = table.rows('.selected')[0];
-                $.each(ids, function(pos, id) {
-                    var row = table.row(id).node();
-                    // TODO: change HTML here (solve refresh issue)
-                    $(row).find('td').each(function() {
-                        var value = $(this).val();
-                        $(this).html('<input type="text" value="' + value + '">');
-                    });
-                    $(row).removeClass('selected');
+            $('#editBtn').on('click', function() {
+                $(table.rows('.selected').nodes()).find('td').each(function(index, item) {
+                    var value = $(item).html();
+                    $(item).html('<input type="text" value="' + value + '">');
                 });
+                //$(table.rows('.selected').nodes()).removeClass('selected');
             });
+
+            // TODO: add "quit edition mode" button
 
             // when save changes
             // TODO: handle this use case
