@@ -7,3 +7,10 @@
     font-weight: bold;
     color: #23C71E;
 }
+.modal-header {
+    background-color: #1b1e21;
+    color: white;
+}
+.close {
+    color: white;
+}

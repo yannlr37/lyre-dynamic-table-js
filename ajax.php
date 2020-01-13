@@ -16,14 +16,15 @@ $start = $_POST['start'];
 $length = $_POST['length'];
 $draw = $_POST['draw'];
 
+
+// Database connection
+$db = new Database();
+
 // get columns ("id" column is set by default)
 $columns = ['id'];
 foreach ($_POST['columns'] as $column) {
     $columns[] = $column['data'];
 }
-
-// Database connection
-$db = new Database();
 
 // count total data (for now, also filtered data)
 $query = "SELECT count(*) as total FROM employees";
@@ -58,7 +59,7 @@ if (!empty($results)) {
         $item['start_date'] = number_format_english($item['start_date']);
 
         // format salary column (use native "number_format" php function)
-        $item['salary'] = format_low_salary($item['salary']);
+        //$item['salary'] = format_low_salary($item['salary']);
 
     });
 

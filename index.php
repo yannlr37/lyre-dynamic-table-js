@@ -32,14 +32,14 @@
                 </thead>
             </table>
             <div class="table-toolbar">
-                <select id="action" name="action">
-                    <option value="none">Action on selection</option>
-                    <option value="edit">Edit</option>
-                    <option value="delete">Delete</option>
-                </select>&nbsp;
-                <button id="applyAction">Apply</button>
-                &nbsp;
                 <button id="clearSelection">Clear selection</button>
+                &nbsp;
+                <button id="editBtn">Edit</button>
+                &nbsp;
+                <button id="deleteBtn">Delete</button>
+                &nbsp;
+                <button id="saveBtn">Save changes</button>
+                &nbsp;
             </div>
         </div>
 
@@ -53,11 +53,9 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Edition form goes here</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -65,13 +63,10 @@
 
     </div>
 
+    <script type="text/javascript" src="js/functions.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
 
-		    // lines selected
-		    var selection = [];
-		    // selected on action to apply
-            var action = 'none';
+		$(document).ready(function() {
 
 		    // DataTables options
 		    var options = {
@@ -87,7 +82,12 @@
                     { "data": "office" },
                     { "data": "age" },
                     { "data": "start_date" },
-                    { "data": "salary" }
+                    {
+                        "data": "salary",
+                        "render": function(data, type, row, meta) {
+                            return '$' + number_format(data, 0, '.', ',');
+                        }
+                    }
                 ],
                 "pagingType": "full_numbers",
                 "lengthChange": false,
@@ -101,8 +101,6 @@
 
 		    // customize toolbar
             var toolbarBtns = `
-                <button id="saveBtn">Save changes</button>
-                &nbsp;
                 <button id="importBtn">Import from CSV</button>
                 &nbsp;
                 <button id="exportBtn">Export to CSV</button>
@@ -125,70 +123,43 @@
                }
             });
 
-		    // choose action
-		    $('#action').on('change', function(event) {
-		        action = $(this).val();
+            // delete selection
+            $('#deleteBtn').on('click', function() {
+                table.rows('.selected').remove().draw(false);
             });
 
-		    // apply action on selection
-            $('#applyAction').on('click', function(event) {
-                var error = false;
-                if (action === 'none' || action === '') {
-                    error = true;
-                    console.error('No action selected');
-                }
-                if (selection.length === 0) {
-                    error = true;
-                    console.error('No selection available');
-                }
-                if (!error) {
-                    switch (action) {
-                        case 'none':
-                            console.log('no action');
-                            break;
-                        case 'edit':
-                            // TODO: change to form
-                            // empty form content
-                            $('#edit-modal .modal-body').html('');
-                            // create nav tabs navigation
-                            var html = '<ul class="nav nav-tabs" id="dataTab" role="tablist">';
-                            var data = selection.data();
-                            $.each(data, function(index, item) {
-                                html += '<li class="nav-item">';
-                                html += '<a class="nav-link" data-toggle="tab" href="#item'+index+'" role="tab" aria-controls="item'+index+'">item #' + (index+1) + '</a>';
-                                html += '</li>';
-                            });
-                            html += '</ul>';
-                            // create tabs with data
-                            html += '<div class="tab-content" id="dataTabContent">';
-                            $.each(data, function(index, item) {
-                                html += '<div class="tab-pane fade" role="tabpanel" id="item'+index+'" aria-labbeledby="item'+index+'" aria-selected="false">';
-                                $.each(item, function(key, value) {
-                                    html += value + '<br>';
-                                });
-                                html += '</div>';
-                            });
-                            html += '</div>';
-                            $('#edit-modal .modal-body').html(html);
-                            // force first tab to be active
-                            var firstTab = $('#edit-modal .modal-body #dataTab').find('.nav-item').first();
-                            firstTab.find('.nav-link').first().addClass('active');
-                            // select first tab
-                            var firstPanel = $('#edit-modal .modal-body #dataTabContent').find('.tab-pane').first();
-                            firstPanel.attr('aria-selected', true);
-                            firstPanel.addClass('show active');
-                            // display modal
-                            $('#edit-modal').modal('show');
-                            break;
-                        case 'delete':
-                            console.log('delete selected lines ...');
-                            console.log(selection.data());
-                            selection.remove().draw(false);
-                            selection = [];
-                            console.log('selected lines removed');
-                            break;
-                    }
-                }
+            // edit selection
+            $('#editBtn').on('click', function(event) {
+                event.preventDefault();
+                var ids = table.rows('.selected')[0];
+                $.each(ids, function(pos, id) {
+                    var row = table.row(id).node();
+                    // TODO: change HTML here (solve refresh issue)
+                    $(row).find('td').each(function() {
+                        var value = $(this).val();
+                        $(this).html('<input type="text" value="' + value + '">');
+                    });
+                    $(row).removeClass('selected');
+                });
+            });
+
+            // when save changes
+            // TODO: handle this use case
+            $('body').on('click', '#saveBtn', function(event) {
+               event.preventDefault();
+               $.ajax({
+                   url: 'save.php',
+                   method: 'post',
+                   data: {
+                       changed: changed,
+                       deleted: deleted
+                   },
+                   dataType: 'json'
+               }).done(function(response) {
+                    table.ajax.reload();
+               }).fail(function(error) {
+                   console.error(error);
+               });
             });
 		});
 	</script>
