@@ -674,6 +674,7 @@
 			}
 		});
 
+		// single line selection
 		$(context).on('change', '.slaveCheckbox', function(event) {
 			if ($(this).is(':checked')) {
 				$(this).parent('td').parent('tr').addClass('selected');
