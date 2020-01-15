@@ -14,3 +14,11 @@
 .close {
     color: white;
 }
+.icon-link:hover {
+    cursor: pointer;
+}
+.dataTable input[type="text"] {
+    height: 25px;
+    width: 100%;
+    max-width: 100%;
+}
