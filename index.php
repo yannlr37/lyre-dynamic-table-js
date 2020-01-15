@@ -719,6 +719,9 @@
 		// delete multi selection
 		$('#deleteBtn').on('click', function () {
 			table.rows('.selected').remove().draw(false);
+			$('#clearSelection').prop('disabled', true);
+			$('#deleteBtn').prop('disabled', true);
+			$('#masterCheckbox').prop('checked', false);
 		});
 
 		/* -------------------------------------------------------------------------------------------------------------
