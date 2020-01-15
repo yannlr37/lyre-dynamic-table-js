@@ -6,9 +6,11 @@ $response = array(
 	'data' => ''
 );
 
+// TODO: get newt auto-increment index to be added in DB
+
 $html = array(
 	'<input type="checkbox" class="slaveCheckbox">',
-	'<input type="text" name="id">',
+	'x',
 	'<input type="text" name="active">',
 	'<input type="text" name="age">',
 	'<input type="text" name="name">',
@@ -16,7 +18,7 @@ $html = array(
 	'<input type="text" name="company">',
 	'<input type="text" name="email">',
 	'<input type="text" name="phone">',
-	'<i class="icon-link fa fa-save text-warning validateRowLink" title="Quit edit mode"></i>'
+	'<i class="icon-link fa fa-save text-warning validateRowLink" title="Validate modifications"></i>'
 );
 $response['data'] = $html;
 

@@ -736,7 +736,7 @@
 				dataType: 'json'
 			}).done(function(response) {
 				if (response.success) {
-					var newRow = table.row.addFirstPos(response.data, 0);
+					var newRow = table.row.add(response.data).draw().node();
 					$(newRow).addClass('editable');
 				} else {
 					console.error(response.message);
