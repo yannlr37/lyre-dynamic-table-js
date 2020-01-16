@@ -7,7 +7,7 @@ class Database
     private $_port = 3306;
     private $_dbname = 'lyre_datatable';
     private $_user = 'root';
-    private $_password = 'MySqlPassword';
+    private $_password = '';
     public $conn = null;
 
     public function __construct()

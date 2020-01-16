@@ -13,4 +13,6 @@ Features :
 * inline row edition
 * add new row (inline)
 
+	* customisable new line HTML
+
 ![demo2](img/LyreDynamicTableJs_newrow.JPG)

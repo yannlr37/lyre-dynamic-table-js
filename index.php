@@ -603,32 +603,21 @@
 		 * -------------------------------------------------------------------------------------------------------------
 		 */
 
-		// custom function to add new row at first position
-		$.fn.dataTable.Api.register('row.addFirstPos()', function(data) {
-			var context = this.context;
-
-			var currentPage = this.page();
-			this.row.add(data);
-			var rowCount = this.data().length - 1;
-			var insertedRow = this.row(rowCount).data();
-			var tempRow;
-
-			for (var i=rowCount; i>index; i--) {
-				tempRow = table.row(i-1).data();
-				this.row(i).data(tempRow);
-				this.row(i-1).data(insertedRow)
-			}
-
-			return this.page(currentPage).draw(false).node();
-		});
-
 		// DataTables options
 		var options = {
 			"pagingType": "full_numbers",
 			"lengthChange": false,
 			"pageLength": 10,
 			"dom": 'if <"#toolbar"> <"action">rt<"bottom"lp>',
-			"scrollX": true
+			"scrollX": true,
+			"order": [[ 1, "asc" ]],
+			"columnDefs": [
+				{
+					"targets": [ 1 ],
+					"visible": false,
+					"searchable": false
+				}
+			]
 		};
 
 		// init DataTable
@@ -735,7 +724,7 @@
 
 			$.ajax({
 				url: 'getHtml.php',
-				method: 'get',
+				method: 'post',
 				data: {},
 				dataType: 'json'
 			}).done(function(response) {
@@ -758,7 +747,20 @@
 		// edition mode
 		$(context).on('click', 'tbody .editRowLink', function (event) {
 			var row = $(this).parent('td').parent('tr');
-			console.log(table.row(row).data());
+			$.ajax({
+				url: 'getHtml.php',
+				method: 'post',
+				data: {data: table.row(row).data()},
+				dataType: 'json'
+			}).done(function(response) {
+				if (response.success) {
+					table.row(row).data(response.data).draw(false);
+				} else {
+					console.error(response.message);
+				}
+			}).fail(function(error) {
+				console.error(error);
+			});
 		});
 
 		/* -------------------------------------------------------------------------------------------------------------
