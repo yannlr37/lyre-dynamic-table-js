@@ -6,7 +6,10 @@ $response = array(
 	'data' => ''
 );
 
+// default values (if new row)
 $values = [];
+$active = true;
+$gender = 'female';
 $id = -1;
 
 if (isset($_POST['data'])) {
@@ -24,13 +27,13 @@ if (isset($_POST['data'])) {
 $html = array(
 	'<input type="checkbox" class="slaveCheckbox">',
 	$id,
-	'<select name="active"><option value="none"></option><option value="true" ' . (($active) ? 'selected' : '') . '>true</option><option value="false" ' . (($active) ? '' : 'selected') . '>false</option></select>',
-	'<input type="text" name="age" value="' . ((count($values) > 0) ?  $values[2] : '' ) . '">',
-	'<input type="text" name="name" value="' . ((count($values) > 0) ?  $values[3] : '' ) . '">',
-	'<select name="gender"><option value="none"></option><option value="female" ' . (($gender === 'female') ? 'selected' : '') . '>female</option><option value="male" ' . (($gender === 'male') ? 'selected' : '') . '>male</option></select>',
-	'<input type="text" name="company" value="' . ((count($values) > 0) ?  $values[5] : '' ) . '">',
-	'<input type="text" name="email" value="' . ((count($values) > 0) ?  $values[6] : '' ) . '">',
-	'<input type="text" name="phone" value="' . ((count($values) > 0) ?  $values[7] : '' ) . '">',
+	'<select name="active" class="editableField"><option value="true" ' . (($active) ? 'selected="selected"' : '') . '>true</option><option value="false" ' . (($active) ? '' : 'selected="selected"') . '>false</option></select>',
+	'<input type="text" class="editableField" name="age" value="' . ((count($values) > 0) ?  $values[2] : '' ) . '">',
+	'<input type="text" class="editableField" name="name" value="' . ((count($values) > 0) ?  $values[3] : '' ) . '">',
+	'<select name="gender" class="editableField"><option value="female" ' . (($gender === 'female') ? 'selected="selected"' : '') . '>female</option><option value="male" ' . (($gender === 'male') ? 'selected="selected"' : '') . '>male</option></select>',
+	'<input type="text" class="editableField" name="company" value="' . ((count($values) > 0) ?  $values[5] : '' ) . '">',
+	'<input type="text" class="editableField" name="email" value="' . ((count($values) > 0) ?  $values[6] : '' ) . '">',
+	'<input type="text" class="editableField" name="phone" value="' . ((count($values) > 0) ?  $values[7] : '' ) . '">',
 	'<i class="icon-link fa fa-save text-warning validateRowLink" title="Validate modifications"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>'
 );
 $response['data'] = $html;

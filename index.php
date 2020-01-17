@@ -21,6 +21,16 @@
 <body>
 
 <div class="container">
+
+	<?php
+		include 'Database.php';
+		$clients = [];
+		$db = new Database();
+		$sql = 'SELECT * FROM clients';
+		$stmt = $db->conn->prepare($sql);
+		$stmt->execute();
+		$clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	?>
 	<h1>Dynamic Table</h1>
 
 	<div id="table-container">
@@ -42,524 +52,26 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr>
-				<td>
-					<input type="checkbox" class="slaveCheckbox">
-				</td>
-				<td>0</td>
-				<td>true</td>
-				<td>28</td>
-				<td>Kelli Bates</td>
-				<td>female</td>
-				<td>DEVILTOE</td>
-				<td>kellibates@deviltoe.com</td>
-				<td>+1 (962) 569-2077</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>1</td>
-				<td>false</td>
-				<td>34</td>
-				<td>Marylou Hampton</td>
-				<td>female</td>
-				<td>FUTURIZE</td>
-				<td>marylouhampton@futurize.com</td>
-				<td>+1 (942) 510-2475</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>2</td>
-				<td>true</td>
-				<td>35</td>
-				<td>Manuela Dickson</td>
-				<td>female</td>
-				<td>GINK</td>
-				<td>manueladickson@gink.com</td>
-				<td>+1 (910) 527-3184</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>3</td>
-				<td>false</td>
-				<td>20</td>
-				<td>Cole Guerrero</td>
-				<td>male</td>
-				<td>KONNECT</td>
-				<td>coleguerrero@konnect.com</td>
-				<td>+1 (917) 438-3194</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>4</td>
-				<td>false</td>
-				<td>31</td>
-				<td>Joann Owen</td>
-				<td>female</td>
-				<td>GRONK</td>
-				<td>joannowen@gronk.com</td>
-				<td>+1 (820) 507-3959</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>5</td>
-				<td>false</td>
-				<td>29</td>
-				<td>Jessie Shaw</td>
-				<td>female</td>
-				<td>ZOUNDS</td>
-				<td>jessieshaw@zounds.com</td>
-				<td>+1 (879) 543-2457</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>6</td>
-				<td>true</td>
-				<td>36</td>
-				<td>Aline Buckner</td>
-				<td>female</td>
-				<td>GEOFORM</td>
-				<td>alinebuckner@geoform.com</td>
-				<td>+1 (916) 490-2474</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>7</td>
-				<td>false</td>
-				<td>25</td>
-				<td>Bernadette Myers</td>
-				<td>female</td>
-				<td>PHOLIO</td>
-				<td>bernadettemyers@pholio.com</td>
-				<td>+1 (909) 426-3806</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>8</td>
-				<td>true</td>
-				<td>27</td>
-				<td>Lesley Byrd</td>
-				<td>female</td>
-				<td>KONGENE</td>
-				<td>lesleybyrd@kongene.com</td>
-				<td>+1 (908) 531-3338</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>9</td>
-				<td>false</td>
-				<td>25</td>
-				<td>Stanley Stuart</td>
-				<td>male</td>
-				<td>ESCHOIR</td>
-				<td>stanleystuart@eschoir.com</td>
-				<td>+1 (917) 432-2002</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>10</td>
-				<td>false</td>
-				<td>25</td>
-				<td>Rutledge Wooten</td>
-				<td>male</td>
-				<td>UNCORP</td>
-				<td>rutledgewooten@uncorp.com</td>
-				<td>+1 (963) 595-3502</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>11</td>
-				<td>false</td>
-				<td>28</td>
-				<td>Kelsey Skinner</td>
-				<td>female</td>
-				<td>ZENSURE</td>
-				<td>kelseyskinner@zensure.com</td>
-				<td>+1 (950) 563-335</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>12</td>
-				<td>false</td>
-				<td>24</td>
-				<td>Mae Meyer</td>
-				<td>female</td>
-				<td>GEEKY</td>
-				<td>maemeyer@geeky.com</td>
-				<td>+1 (807) 405-253</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>13</td>
-				<td>false</td>
-				<td>35</td>
-				<td>Kerr Chapman</td>
-				<td>male</td>
-				<td>OVOLO</td>
-				<td>kerrchapman@ovolo.com</td>
-				<td>+1 (824) 500-250</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>14</td>
-				<td>true</td>
-				<td>30</td>
-				<td>Tanisha Everett</td>
-				<td>female</td>
-				<td>SPORTAN</td>
-				<td>tanishaeverett@sportan.com</td>
-				<td>+1 (938) 426-207</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>15</td>
-				<td>false</td>
-				<td>35</td>
-				<td>Sharpe Yang</td>
-				<td>male</td>
-				<td>POLARIUM</td>
-				<td>sharpeyang@polarium.com</td>
-				<td>+1 (939) 564-336</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>16</td>
-				<td>true</td>
-				<td>23</td>
-				<td>Maude Tucker</td>
-				<td>female</td>
-				<td>OCTOCORE</td>
-				<td>maudetucker@octocore.com</td>
-				<td>+1 (937) 511-231</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>17</td>
-				<td>true</td>
-				<td>27</td>
-				<td>Robles Hoffman</td>
-				<td>male</td>
-				<td>JETSILK</td>
-				<td>robleshoffman@jetsilk.com</td>
-				<td>+1 (927) 560-318</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>18</td>
-				<td>true</td>
-				<td>30</td>
-				<td>Ines Christensen</td>
-				<td>female</td>
-				<td>KOFFEE</td>
-				<td>ineschristensen@koffee.com</td>
-				<td>+1 (829) 506-321</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>19</td>
-				<td>false</td>
-				<td>28</td>
-				<td>Scott Blevins</td>
-				<td>male</td>
-				<td>VITRICOMP</td>
-				<td>scottblevins@vitricomp.com</td>
-				<td>+1 (996) 468-247</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>20</td>
-				<td>true</td>
-				<td>28</td>
-				<td>Callahan Bartlett</td>
-				<td>male</td>
-				<td>ELENTRIX</td>
-				<td>callahanbartlett@elentrix.com</td>
-				<td>+1 (860) 440-302</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>21</td>
-				<td>false</td>
-				<td>21</td>
-				<td>Campos White</td>
-				<td>male</td>
-				<td>VIASIA</td>
-				<td>camposwhite@viasia.com</td>
-				<td>+1 (914) 402-218</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>22</td>
-				<td>false</td>
-				<td>25</td>
-				<td>Rita Ward</td>
-				<td>female</td>
-				<td>AUTOMON</td>
-				<td>ritaward@automon.com</td>
-				<td>+1 (831) 491-233</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>23</td>
-				<td>false</td>
-				<td>24</td>
-				<td>Peck Cardenas</td>
-				<td>male</td>
-				<td>ENTALITY</td>
-				<td>peckcardenas@entality.com</td>
-				<td>+1 (874) 412-273</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>24</td>
-				<td>true</td>
-				<td>20</td>
-				<td>Hughes Moody</td>
-				<td>male</td>
-				<td>LOCAZONE</td>
-				<td>hughesmoody@locazone.com</td>
-				<td>+1 (830) 456-301</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>25</td>
-				<td>true</td>
-				<td>31</td>
-				<td>Meredith Sexton</td>
-				<td>female</td>
-				<td>XYMONK</td>
-				<td>meredithsexton@xymonk.com</td>
-				<td>+1 (969) 440-239</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>26</td>
-				<td>false</td>
-				<td>33</td>
-				<td>Travis Jenkins</td>
-				<td>male</td>
-				<td>EXTRO</td>
-				<td>travisjenkins@extro.com</td>
-				<td>+1 (880) 406-388</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>27</td>
-				<td>false</td>
-				<td>30</td>
-				<td>Charles Lowery</td>
-				<td>male</td>
-				<td>KAGE</td>
-				<td>charleslowery@kage.com</td>
-				<td>+1 (857) 596-286</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>28</td>
-				<td>false</td>
-				<td>29</td>
-				<td>Payne Pace</td>
-				<td>male</td>
-				<td>CYCLONICA</td>
-				<td>paynepace@cyclonica.com</td>
-				<td>+1 (815) 472-268</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>29</td>
-				<td>true</td>
-				<td>25</td>
-				<td>Irwin Holland</td>
-				<td>male</td>
-				<td>OCEANICA</td>
-				<td>irwinholland@oceanica.com</td>
-				<td>+1 (891) 595-262</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>30</td>
-				<td>true</td>
-				<td>29</td>
-				<td>Watson Pruitt</td>
-				<td>male</td>
-				<td>CUBICIDE</td>
-				<td>watsonpruitt@cubicide.com</td>
-				<td>+1 (866) 568-279</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>31</td>
-				<td>false</td>
-				<td>26</td>
-				<td>Frieda Glover</td>
-				<td>female</td>
-				<td>DUFLEX</td>
-				<td>friedaglover@duflex.com</td>
-				<td>+1 (847) 413-243</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>32</td>
-				<td>true</td>
-				<td>33</td>
-				<td>Veronica Shepard</td>
-				<td>female</td>
-				<td>SONGBIRD</td>
-				<td>veronicashepard@songbird.com</td>
-				<td>+1 (994) 531-246</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>33</td>
-				<td>false</td>
-				<td>34</td>
-				<td>Parrish Ingram</td>
-				<td>male</td>
-				<td>INTERGEEK</td>
-				<td>parrishingram@intergeek.com</td>
-				<td>+1 (923) 572-350</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>34</td>
-				<td>true</td>
-				<td>21</td>
-				<td>Black Ashley</td>
-				<td>male</td>
-				<td>BIOSPAN</td>
-				<td>blackashley@biospan.com</td>
-				<td>+1 (847) 578-323</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>35</td>
-				<td>false</td>
-				<td>38</td>
-				<td>Alissa Burke</td>
-				<td>female</td>
-				<td>TELEQUIET</td>
-				<td>alissaburke@telequiet.com</td>
-				<td>+1 (961) 499-395</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>36</td>
-				<td>true</td>
-				<td>29</td>
-				<td>Winnie Ferguson</td>
-				<td>female</td>
-				<td>DATAGEN</td>
-				<td>winnieferguson@datagen.com</td>
-				<td>+1 (827) 554-305</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>37</td>
-				<td>true</td>
-				<td>39</td>
-				<td>Rodriquez Dillard</td>
-				<td>male</td>
-				<td>QIAO</td>
-				<td>rodriquezdillard@qiao.com</td>
-				<td>+1 (953) 500-379</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>38</td>
-				<td>false</td>
-				<td>33</td>
-				<td>Matilda Gomez</td>
-				<td>female</td>
-				<td>EMERGENT</td>
-				<td>matildagomez@emergent.com</td>
-				<td>+1 (853) 410-234</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>39</td>
-				<td>true</td>
-				<td>20</td>
-				<td>Jeannette Haynes</td>
-				<td>female</td>
-				<td>PLAYCE</td>
-				<td>jeannettehaynes@playce.com</td>
-				<td>+1 (852) 526-350</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>40</td>
-				<td>true</td>
-				<td>27</td>
-				<td>Lindsay Michael</td>
-				<td>male</td>
-				<td>RETROTEX</td>
-				<td>lindsaymichael@retrotex.com</td>
-				<td>+1 (961) 442-363</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>41</td>
-				<td>false</td>
-				<td>32</td>
-				<td>Stacy Franks</td>
-				<td>female</td>
-				<td>ARCTIQ</td>
-				<td>stacyfranks@arctiq.com</td>
-				<td>+1 (800) 458-266</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" class="slaveCheckbox"></td>
-				<td>42</td>
-				<td>false</td>
-				<td>30</td>
-				<td>Renee Mccullough</td>
-				<td>female</td>
-				<td>ISOLOGIX</td>
-				<td>reneemccullough@isologix.com</td>
-				<td>+1 (998) 553-296</td>
-				<td><i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i></td>
-			</tr>
+				<?php foreach ($clients as $client) : ?>
+				<tr>
+					<td>
+						<input type="checkbox" class="slaveCheckbox">
+					</td>
+					<td><?= $client['id'] ?></td>
+					<td><?= ($client['active']) ? 'true' : 'false' ?></td>
+					<td><?= $client['age'] ?></td>
+					<td><?= $client['name'] ?></td>
+					<td><?= $client['gender'] ?></td>
+					<td><?= $client['company'] ?></td>
+					<td><?= $client['email'] ?></td>
+					<td><?= $client['phone'] ?></td>
+					<td>
+						<i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>
+						&nbsp;/&nbsp;
+						<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i>
+					</td>
+				</tr>
+				<?php endforeach; ?>
 			</tbody>
 		</table>
 		<div class="table-toolbar">
@@ -567,7 +79,7 @@
 			&nbsp;
 			<button id="deleteBtn" disabled>Delete selection</button>
 			&nbsp;
-			<button id="saveBtn" disabled>Save changes</button>
+			<button id="saveBtn">Save changes</button>
 			&nbsp;
 		</div>
 	</div>
@@ -597,6 +109,7 @@
 
 	$(document).ready(function () {
 
+		var normalHtmlActions = '<i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i>';
 
 		/* -------------------------------------------------------------------------------------------------------------
 		 * Initialisation, Configuration & Customisation
@@ -764,6 +277,26 @@
 		});
 
 		/* -------------------------------------------------------------------------------------------------------------
+		 * Save data (client-side)
+		 * -------------------------------------------------------------------------------------------------------------
+		 */
+		$(context).on('click', 'tbody .validateRowLink', function(event) {
+			var row = $(this).parent('td').parent('tr');
+			var htmlData = table.row(row).data();
+			var data = [];
+			for (var i = 0; i < htmlData.length-1; i++) {
+				data[i] = htmlData[i];
+			}
+			data[1] = htmlData[1];
+			row.find('.editableField').each(function(index, item) {
+				data[index+2] = $(item).val();
+			});
+			data.push(normalHtmlActions);
+			console.log(data);
+			table.row(row).data(data).draw(false);
+		});
+
+		/* -------------------------------------------------------------------------------------------------------------
 		 * Save data to database (server-side)
 		 * -------------------------------------------------------------------------------------------------------------
 		 */
@@ -772,20 +305,45 @@
 		// TODO: handle this use case
 		$('body').on('click', '#saveBtn', function (event) {
 			event.preventDefault();
+			var data = table.rows().data();
 			$.ajax({
-				url: 'save.php',
+				url: 'save_bdd.php',
 				method: 'post',
 				data: {
-					changed: changed,
-					deleted: deleted
+					data: data
 				},
 				dataType: 'json'
 			}).done(function (response) {
+				// TODO: reload table and force new data ?
+				// TODO : or refresh all page (reload page)
 				table.ajax.reload();
+				// TODO: does it work ?
+				table.rows.remove().draw(false);
+				$.each(responsE.data, function(index, item) {
+					table.row(indew).data(item).draw(false);
+				});
 			}).fail(function (error) {
 				console.error(error);
 			});
 		});
+
+		/* -------------------------------------------------------------------------------------------------------------
+		 * Edition value handle
+		 * -------------------------------------------------------------------------------------------------------------
+		 */
+
+		$(context).on('keyup', 'tbody .editableField', function(event) {
+			var value = $(this).val();
+			$(this).val(value);
+		});
+
+		$(context).on('change', 'tbody select', function(event) {
+			var value = $(this).find('option:selected').val();
+			$(this).find('option').removeAttr('selected');
+			$(this).find('option:selected').attr('selected', 'selected');
+			$(this).val(value);
+		});
+
 	});
 </script>
 </body>
