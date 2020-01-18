@@ -125,6 +125,12 @@
 			"scrollX": true,
 			"order": [[ 1, "asc" ]],
 			"columnDefs": [
+                {
+                    "targets": [ 0 ],
+                    "visible": true,
+                    "searchable": false,
+                    "orderable": false
+                },
 				{
 					"targets": [ 1 ],
 					"visible": false,
@@ -292,7 +298,6 @@
 				data[index+2] = $(item).val();
 			});
 			data.push(normalHtmlActions);
-			console.log(data);
 			table.row(row).data(data).draw(false);
 		});
 
@@ -314,6 +319,7 @@
 				},
 				dataType: 'json'
 			}).done(function (response) {
+			    console.log(response.data);
 				// TODO: reload table and force new data ?
 				// TODO : or refresh all page (reload page)
 				table.ajax.reload();
