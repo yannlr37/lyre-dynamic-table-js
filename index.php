@@ -33,6 +33,13 @@
 	?>
 	<h1>Dynamic Table</h1>
 
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-danger" id="alerts" hidden>
+			</div>
+		</div>
+	</div>
+
 	<div id="table-container">
 		<table id="example" class="display" style="width:100%">
 			<thead>
@@ -107,9 +114,20 @@
 <script type="text/javascript" src="js/functions.js"></script>
 <script type="text/javascript">
 
+	function ToggleActionButtons(selection) {
+		if (selection.length > 0) {
+			$('#clearSelection').prop('disabled', false);
+			$('#deleteBtn').prop('disabled', false);
+		} else {
+			$('#clearSelection').prop('disabled', true);
+			$('#deleteBtn').prop('disabled', true);
+		}
+	}
+
 	$(document).ready(function () {
 
 		var normalHtmlActions = '<i class="icon-link fa fa-edit text-primary editRowLink" title="Edit"></i>&nbsp;/&nbsp;<i class="icon-link fa fa-times text-danger deleteRowLink" title="Delete"></i>';
+		var slaveCheckboxHtml = '<input type="checkbox" class="slaveCheckbox">';
 
 		/* -------------------------------------------------------------------------------------------------------------
 		 * Initialisation, Configuration & Customisation
@@ -135,6 +153,12 @@
 					"targets": [ 1 ],
 					"visible": false,
 					"searchable": false
+				},
+				{
+					"targets": [ 9 ],
+					"visible": true,
+					"searchable": false,
+					"orderable": false
 				}
 			]
 		};
@@ -143,6 +167,7 @@
 		var context = '#example';
 		var table = $(context).DataTable(options);
 		var selection = [];
+		var editionModeActive = false;
 
 		// customize toolbar
 		var toolbarBtns = `
@@ -173,13 +198,7 @@
 				$(context + ' tr').removeClass('selected');
 			}
 			selection = table.rows('.selected')[0];
-			if (selection.length > 0) {
-				$('#clearSelection').prop('disabled', false);
-				$('#deleteBtn').prop('disabled', false);
-			} else {
-				$('#clearSelection').prop('disabled', true);
-				$('#deleteBtn').prop('disabled', true);
-			}
+			ToggleActionButtons(selection);
 		});
 
 		// single line selection
@@ -190,13 +209,7 @@
 				$(this).parent('td').parent('tr').removeClass('selected');
 			}
 			selection = table.rows('.selected')[0];
-			if (selection.length > 0) {
-				$('#clearSelection').prop('disabled', false);
-				$('#deleteBtn').prop('disabled', false);
-			} else {
-				$('#clearSelection').prop('disabled', true);
-				$('#deleteBtn').prop('disabled', true);
-			}
+			ToggleActionButtons(selection);
 		});
 
 		// clear selection
@@ -209,8 +222,8 @@
 					$(this).toggleClass('selected');
 				});
 				selection = [];
+				ToggleActionButtons(selection);
 				$('#masterCheckbox').prop('checked', false);
-				$('#deleteBtn').prop('disabled', true);
 			}
 		});
 
@@ -266,6 +279,7 @@
 		// edition mode
 		$(context).on('click', 'tbody .editRowLink', function (event) {
 			var row = $(this).parent('td').parent('tr');
+			editionModeActive = true;
 			$.ajax({
 				url: 'getHtml.php',
 				method: 'post',
@@ -274,6 +288,8 @@
 			}).done(function(response) {
 				if (response.success) {
 					table.row(row).data(response.data).draw(false);
+					$(table.row(row).node()).addClass('editable');
+					$('#saveBtn').prop('disabled', true);
 				} else {
 					console.error(response.message);
 				}
@@ -299,6 +315,15 @@
 			});
 			data.push(normalHtmlActions);
 			table.row(row).data(data).draw(false);
+			$(table.row(row).node()).removeClass('editable');
+			// if there is still one row editable, disable save button
+			if (table.rows('.editable')[0].length > 0) {
+				$('#saveBtn').prop('disabled', true);
+			} else {
+				console.log('all rows are clear');
+				$('#saveBtn').prop('disabled', false);
+				editionModeActive = false;
+			}
 		});
 
 		/* -------------------------------------------------------------------------------------------------------------
@@ -308,29 +333,49 @@
 
 		// when save changes
 		// TODO: handle this use case
-		$('body').on('click', '#saveBtn', function (event) {
+		$('#saveBtn').on('click', function (event) {
 			event.preventDefault();
-			var data = table.rows().data();
-			$.ajax({
-				url: 'save_bdd.php',
-				method: 'post',
-				data: {
-					data: data
-				},
-				dataType: 'json'
-			}).done(function (response) {
-			    console.log(response.data);
-				// TODO: reload table and force new data ?
-				// TODO : or refresh all page (reload page)
-				table.ajax.reload();
-				// TODO: does it work ?
-				table.rows.remove().draw(false);
-				$.each(responsE.data, function(index, item) {
-					table.row(indew).data(item).draw(false);
+			if (!editionModeActive) {
+				var data = [];
+				table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+					data.push(this.data());
 				});
-			}).fail(function (error) {
-				console.error(error);
-			});
+
+				$.ajax({
+					url: 'save_bdd.php',
+					method: 'post',
+					data: {data: data},
+					dataType: 'json'
+				}).done(function (response) {
+					// reload page
+					//window.location.href = 'index.php';
+					table.clear();
+					$.each(response.data, function(index, item) {
+						var values = [
+							slaveCheckboxHtml,
+							item.id,
+							(parseInt(item.active) === 1) ? 'true' : 'false',
+							item.age,
+							item.name,
+							item.gender,
+							item.company,
+							item.email,
+							item.phone,
+							normalHtmlActions
+						];
+						console.log(values);
+						table.row.add(values);
+					});
+					table.draw();
+
+					if (response.messages.length > 0) {
+						$('#alerts').html(response.messages.join('<br>'));
+						$('#alerts').prop('hidden', false);
+					}
+				}).fail(function (error) {
+					console.error(error);
+				});
+			}
 		});
 
 		/* -------------------------------------------------------------------------------------------------------------
