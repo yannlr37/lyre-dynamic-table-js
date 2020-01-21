@@ -16,6 +16,10 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 			crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.semanticui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css">
 	<link rel="stylesheet" href="css/example.css">
 </head>
 <body>
@@ -56,7 +60,7 @@
 	</div>
 
 	<div id="table-container">
-		<table id="example" class="display" style="width:100%">
+		<table id="example" class="display ui celled table" style="width:100%">
 			<thead>
 				<tr>
 					<th>
@@ -97,32 +101,17 @@
 			</tbody>
 		</table>
 		<div class="table-toolbar">
-			<button id="clearSelection" disabled>Clear selection</button>
+			<button id="clearSelection" class="btn btn-primary" disabled>Clear selection</button>
 			&nbsp;
-			<button id="deleteBtn" disabled>Delete selection</button>
+			<button id="deleteBtn" class="btn btn-primary" disabled>Delete selection</button>
 			&nbsp;
-			<button id="saveBtn">Save changes</button>
+			<button id="saveBtn" class="btn btn-primary">Save changes</button>
 			&nbsp;
 		</div>
 	</div>
 
-	<div id="edit-modal" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Edit Data</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<br>
+	<br>
 
 </div>
 
@@ -192,11 +181,11 @@
 		 * -------------------------------------------------------------------------------------------------------------
 		 */
 		var toolbarBtns = `
-				<button id="addBtn">Add new row</button>
+				<button id="addBtn" class="btn btn-primary">Add new row</button>
                 &nbsp;
-                <button id="importBtn">Import from CSV</button>
+                <button id="importBtn" class="btn btn-primary">Import from CSV</button>
                 &nbsp;
-                <button id="exportBtn">Export to CSV</button>
+                <button id="exportBtn" class="btn btn-primary">Export to CSV</button>
             `;
 		$("div#toolbar").html(toolbarBtns);
 

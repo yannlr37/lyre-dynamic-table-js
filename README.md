@@ -16,3 +16,7 @@ Features :
 	* customisable new line HTML
 
 ![demo2](img/LyreDynamicTableJs_newrow.JPG)
+
+* different styling options
+
+![demo3](img/LyreDynamicTableJs_styling.JPG)
