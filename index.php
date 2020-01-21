@@ -40,23 +40,38 @@
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Filters : </h2>
+			<div>
+				<input type="text" class="search-field" data-field="name" placeholder="Search name ..." data-id="4">
+				<input type="text" class="search-field" data-field="company" placeholder="Search company ..." data-id="6">
+				<select class="search-field" data-id="5">
+					<option value="female">female</option>
+					<option value="male">male</option>
+				</select>
+			</div>
+			<br>
+		</div>
+	</div>
+
 	<div id="table-container">
 		<table id="example" class="display" style="width:100%">
 			<thead>
-			<tr>
-				<th>
-					<input type="checkbox" id="masterCheckbox">
-				</th>
-				<th>Id</th>
-				<th>Active</th>
-				<th>Age</th>
-				<th>Name</th>
-				<th>Gender</th>
-				<th>Company</th>
-				<th>email</th>
-				<th>Phone</th>
-				<th></th>
-			</tr>
+				<tr>
+					<th>
+						<input type="checkbox" id="masterCheckbox">
+					</th>
+					<th>Id</th>
+					<th>Active</th>
+					<th>Age</th>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Company</th>
+					<th>email</th>
+					<th>Phone</th>
+					<th></th>
+				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($clients as $client) : ?>
@@ -163,13 +178,19 @@
 			]
 		};
 
-		// init DataTable
+		/* -------------------------------------------------------------------------------------------------------------
+		 * Init table
+		 * -------------------------------------------------------------------------------------------------------------
+		 */
 		var context = '#example';
 		var table = $(context).DataTable(options);
 		var selection = [];
 		var editionModeActive = false;
 
-		// customize toolbar
+		/* -------------------------------------------------------------------------------------------------------------
+		 * Customize toolbar
+		 * -------------------------------------------------------------------------------------------------------------
+		 */
 		var toolbarBtns = `
 				<button id="addBtn">Add new row</button>
                 &nbsp;
@@ -332,7 +353,6 @@
 		 */
 
 		// when save changes
-		// TODO: handle this use case
 		$('#saveBtn').on('click', function (event) {
 			event.preventDefault();
 			if (!editionModeActive) {
@@ -393,6 +413,17 @@
 			$(this).find('option').removeAttr('selected');
 			$(this).find('option:selected').attr('selected', 'selected');
 			$(this).val(value);
+		});
+
+		/* -------------------------------------------------------------------------------------------------------------
+		 * Individual column searching
+		 * TODO: for select/option fields, search with regex to match only exact values
+		 * -------------------------------------------------------------------------------------------------------------
+		 */
+		$('.search-field').on('keyup change clear', function(event) {
+			var col = $(this).attr('data-id');
+			var value = $(this).val();
+			table.column(col).search(value).draw();
 		});
 
 	});
